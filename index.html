@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LYTE Solutions — Leverage Your Technology</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080a0f;
+      --deep: #0d1117;
+      --card: #111620;
+      --border: rgba(255,255,255,0.07);
+      --white: #f0f4ff;
+      --muted: #8892a4;
+      --accent: #00e5ff;
+      --accent2: #7b61ff;
+      --accent3: #00ff9d;
+      --glow: rgba(0,229,255,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(8,10,15,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--accent);
+      border: none;
+      padding: 0.65rem 1.4rem;
+
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover {
+      box-shadow: 0 0 24px var(--glow);
+      transform: translateY(-1px);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 0 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(0,229,255,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(123,97,255,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 30% at 80% 20%, rgba(0,255,157,0.05) 0%, transparent 50%);
+    }
+
+    /* Animated grid lines */
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridShift 20s linear infinite;
+    }
+    @keyframes gridShift {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(60px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.5rem, 10vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero-title .line2 {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(240,244,255,0.3);
+    }
+
+    .hero-title .accent-word { color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--accent);
+      border: none;
+      padding: 1rem 2.2rem;
+
+      text-decoration: none;
+      display: inline-block;
+      transition: box-shadow 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover {
+      box-shadow: 0 0 40px rgba(0,229,255,0.35);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 1rem 2.2rem;
+
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Floating badge */
+    .hero-badge {
+      position: absolute;
+      right: 6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1.2s;
+    }
+
+    .badge-ring {
+      width: 220px;
+      height: 220px;
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: rotateSlow 20s linear infinite;
+    }
+
+    .badge-ring::before {
+      content: '';
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border: 1px dashed rgba(0,229,255,0.1);
+      border-radius: 50%;
+      animation: rotateSlow 15s linear infinite reverse;
+    }
+
+    .badge-inner {
+      width: 140px;
+      height: 140px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      animation: rotateSlow 20s linear infinite reverse;
+    }
+
+    .badge-inner .big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .badge-inner .badge-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      padding: 0 1rem;
+      margin-top: 0.3rem;
+    }
+
+    .badge-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      top: 50%;
+      left: -4px;
+      margin-top: -4px;
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    @keyframes rotateSlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* MARQUEE */
+    .marquee-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.2rem 0;
+      overflow: hidden;
+      background: var(--deep);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 25s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 3rem;
+      flex-shrink: 0;
+    }
+    .marquee-item span { color: var(--accent); margin-right: 3rem; }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* SECTIONS */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    /* INTRO */
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .intro-visual {
+      position: relative;
+    }
+
+    .intro-boxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .intro-box {
+      background: var(--card);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-box::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    .intro-box:hover::after { transform: scaleX(1); }
+
+    .intro-box-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--accent);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .intro-box-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .intro-box.span2 { grid-column: span 2; }
+
+    /* SERVICES */
+    #services { background: var(--deep); }
+
+    .services-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 4rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .service-card {
+      background: var(--card);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .service-card:nth-child(1)::before { background: var(--accent); }
+    .service-card:nth-child(2)::before { background: var(--accent2); }
+    .service-card:nth-child(3)::before { background: var(--accent3); }
+
+    .service-card:hover::before { opacity: 1; }
+    .service-card:hover { background: #161c28; }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .service-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .service-num {
+      position: absolute;
+      top: 2.5rem;
+      right: 2.5rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+    }
+
+    .service-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .service-card:nth-child(1) .service-tag { color: var(--accent); }
+    .service-card:nth-child(2) .service-tag { color: var(--accent2); }
+    .service-card:nth-child(3) .service-tag { color: var(--accent3); }
+
+    .service-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.9rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.2rem;
+      line-height: 1.1;
+    }
+
+    .service-desc {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .service-features li {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .service-features li::before {
+      content: '';
+      width: 16px;
+      height: 1px;
+      flex-shrink: 0;
+    }
+    .service-card:nth-child(1) .service-features li::before { background: var(--accent); }
+    .service-card:nth-child(2) .service-features li::before { background: var(--accent2); }
+    .service-card:nth-child(3) .service-features li::before { background: var(--accent3); }
+
+    /* HOW IT WORKS */
+    #process {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .process-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 60% at 80% 50%, rgba(123,97,255,0.06) 0%, transparent 70%);
+    }
+
+    .process-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-bottom: 5rem;
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      opacity: 0.3;
+    }
+
+    .process-step {
+      padding: 0 1.5rem;
+      position: relative;
+    }
+
+    .step-dot {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-dot-inner {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .process-step:nth-child(2) .step-dot-inner { background: var(--accent2); }
+    .process-step:nth-child(3) .step-dot-inner { background: var(--accent3); }
+    .process-step:nth-child(4) .step-dot-inner { background: var(--accent); }
+
+    .step-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .step-desc {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* ACRONYM SECTION */
+    #lyte {
+      background: var(--black);
+      padding: 7rem 4rem;
+    }
+
+    .lyte-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .lyte-letters {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .lyte-letter-row {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lyte-letter-row:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .lyte-letter-row::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 0;
+      background: rgba(0,229,255,0.04);
+      transition: width 0.4s ease;
+    }
+
+    .lyte-letter-row:hover::after { width: 100%; }
+
+    .lyte-big-letter {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: var(--accent);
+      line-height: 1;
+      width: auto;
+      min-width: 70px;
+      padding-right: 1rem;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .lyte-word {
+      position: relative;
+      z-index: 1;
+    }
+
+    .lyte-word-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.2rem;
+    }
+
+    .lyte-word-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .lyte-visual {
+      position: relative;
+    }
+
+    .lyte-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lyte-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(0,229,255,0.06) 0%, transparent 60%);
+    }
+
+    .lyte-tagline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .lyte-tagline .highlight { color: var(--accent); }
+
+    .lyte-box-sub {
+      font-size: 0.92rem;
+      line-height: 1.75;
+      color: var(--muted);
+      position: relative;
+    }
+
+    /* CTA */
+    #contact {
+      background: var(--deep);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(0,229,255,0.05) 0%, transparent 70%);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-title .outline {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(240,244,255,0.3);
+    }
+
+    .cta-sub {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-email {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,229,255,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .cta-email:hover { border-color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+    .footer-logo span { color: var(--accent); }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .footer-tagline {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .footer-tagline span { color: var(--accent); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+      .hero { padding: 0 2rem; }
+      .hero-badge { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .intro { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 3rem; }
+      .process-steps::before { display: none; }
+      .lyte-grid { grid-template-columns: 1fr; }
+      .process-header { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      #lyte { padding: 5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">LYTE<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#lyte">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get Started</a>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="grid-lines"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">// Leverage Your Technology</p>
+      <h1 class="hero-title">
+        YOUR TECH<br>
+        <span class="line2">SHOULD</span><br>
+        <span class="accent-word">WORK</span> FOR YOU
+      </h1>
+      <p class="hero-sub">
+        LYTE Solutions helps small and medium sized Canadian businesses unlock the full potential of their existing technology investments — from AI, ERP and SaaS optimization to custom integrations and application development.
+      </p>
+      <div class="hero-actions">
+        <a href="#services" class="btn-primary">Our Services</a>
+        <a href="#contact" class="btn-ghost">Let's Talk</a>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-ring">
+        <div class="badge-dot"></div>
+        <div class="badge-inner">
+          <span class="big-num">3</span>
+          <span class="badge-label">Core Service Areas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item"><span>✦</span> ERP Optimization</span>
+      <span class="marquee-item"><span>✦</span> AI Optimization</span>
+      <span class="marquee-item"><span>✦</span> SaaS Leverage</span>
+      <span class="marquee-item"><span>✦</span> System Integration</span>
+      <span class="marquee-item"><span>✦</span> Mobile Development</span>
+      <span class="marquee-item"><span>✦</span> Web Applications</span>
+      <span class="marquee-item"><span>✦</span> Process Review</span>
+      <span class="marquee-item"><span>✦</span> API Integration</span>
+      <span class="marquee-item"><span>✦</span> Technology Strategy</span>
+      <span class="marquee-item"><span>✦</span> ERP Optimization</span>
+      <span class="marquee-item"><span>✦</span> AI Optimization</span>
+      <span class="marquee-item"><span>✦</span> SaaS Leverage</span>
+      <span class="marquee-item"><span>✦</span> System Integration</span>
+      <span class="marquee-item"><span>✦</span> Mobile Development</span>
+      <span class="marquee-item"><span>✦</span> Web Applications</span>
+      <span class="marquee-item"><span>✦</span> Process Review</span>
+      <span class="marquee-item"><span>✦</span> API Integration</span>
+      <span class="marquee-item"><span>✦</span> Technology Strategy</span>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="intro">
+      <div class="intro-text reveal">
+        <p class="section-label">// Who We Are</p>
+        <h2 class="section-title">TECHNOLOGY THAT DELIVERS</h2>
+        <p class="section-subtitle">
+          Most businesses use only a fraction of the technology they've invested in. LYTE Solutions bridges the gap between potential and performance—helping you unlock more value from your systems through practical, cost-effective improvements. Stay competitive in an increasingly AI-driven world by getting the most out of the tools you already have.
+        </p>
+      </div>
+      <div class="intro-visual reveal reveal-delay-2">
+        <div class="intro-boxes">
+          <div class="intro-box">
+            <div class="intro-box-num">01</div>
+            <div class="intro-box-label">Optimize</div>
+          </div>
+          <div class="intro-box">
+            <div class="intro-box-num">02</div>
+            <div class="intro-box-label">Integrate</div>
+          </div>
+          <div class="intro-box span2">
+            <div class="intro-box-num">03</div>
+            <div class="intro-box-label">Build</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="services-header reveal">
+      <div>
+        <p class="section-label">// What We Do</p>
+        <h2 class="section-title">THREE WAYS WE HELP YOU<br>LEVERAGE YOUR EXISTING TECHNOLOGY</h2>
+      </div>
+      <p class="section-subtitle">Every engagement starts with understanding your existing investments before recommending anything new.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <span class="service-num">01</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="50" height="50" rx="4" stroke="rgba(0,229,255,0.2)" stroke-width="1"/>
+            <path d="M14 26h24M26 14v24" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="26" cy="26" r="8" stroke="rgba(0,229,255,0.4)" stroke-width="1"/>
+            <circle cx="26" cy="26" r="3" fill="#00e5ff"/>
+          </svg>
+        </div>
+        <p class="service-tag">Optimize</p>
+        <h3 class="service-title">UNLOCK WHAT YOU OWN</h3>
+        <p class="service-desc">
+          Your ERP and SaaS systems are likely sitting on untapped capabilities. We review your current processes, identify unused features, and implement them to drive immediate value — no new software required.
+        </p>
+        <ul class="service-features">
+          <li>ERP Process Review & Gap Analysis</li>
+          <li>Unused Feature Activation</li>
+          <li>Workflow Optimization</li>
+          <li>User Adoption & Training</li>
+          <li>Data Cleansing</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-num">02</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="50" height="50" rx="4" stroke="rgba(123,97,255,0.2)" stroke-width="1"/>
+            <circle cx="16" cy="26" r="6" stroke="#7b61ff" stroke-width="1.5"/>
+            <circle cx="36" cy="26" r="6" stroke="#7b61ff" stroke-width="1.5"/>
+            <path d="M22 26h8" stroke="#7b61ff" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16 14v6M36 14v6M16 32v6M36 32v6" stroke="rgba(123,97,255,0.4)" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="service-tag">Integrate</p>
+        <h3 class="service-title">CONNECT YOUR ECOSYSTEM</h3>
+        <p class="service-desc">
+          Disconnected systems create inefficiency and data silos. We design and implement integrations between your existing platforms and complementary services so your technology works as a unified, intelligent ecosystem.
+        </p>
+        <ul class="service-features">
+          <li>AI Tool Introduction</li>
+          <li>API & Middleware Integration</li>
+          <li>Data Synchronization</li>
+          <li>Third-Party Platform Connectors</li>
+          <li>Automated Workflows</li>
+        </ul>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-num">03</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="50" height="50" rx="4" stroke="rgba(0,255,157,0.2)" stroke-width="1"/>
+            <rect x="10" y="16" width="20" height="26" rx="2" stroke="#00ff9d" stroke-width="1.5"/>
+            <rect x="22" y="10" width="20" height="26" rx="2" stroke="rgba(0,255,157,0.4)" stroke-width="1"/>
+            <path d="M16 24h8M16 29h5" stroke="#00ff9d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="service-tag">Build</p>
+        <h3 class="service-title">FILL THE GAPS</h3>
+        <p class="service-desc">
+          When off-the-shelf solutions can't cover your unique needs, we build them. From mobile apps to web-based tools, we develop custom applications that bridge the gaps in your technology landscape.
+        </p>
+        <ul class="service-features">
+          <li>Agentic AI Setup</li>
+	  <li>Mobile App Development (iOS & Android)</li>
+          <li>Web Application Development</li>
+          <li>Custom Portals & Dashboards</li>
+          <li>Legacy System Modernization</li>          
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="process-bg"></div>
+    <div class="process-content">
+      <div class="process-header">
+        <div class="reveal">
+          <p class="section-label">// How We Work</p>
+          <h2 class="section-title">A CLEAR PATH FORWARD</h2>
+        </div>
+        <p class="section-subtitle reveal reveal-delay-1">
+          We follow a structured engagement model that ensures every recommendation is grounded in a deep understanding of your business and existing technology.
+        </p>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <div class="step-dot"><div class="step-dot-inner"></div></div>
+          <p class="step-num">Step 01</p>
+          <h4 class="step-title">DISCOVER</h4>
+          <p class="step-desc">We start by mapping your current technology landscape, processes, and business objectives.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-1">
+          <div class="step-dot"><div class="step-dot-inner"></div></div>
+          <p class="step-num">Step 02</p>
+          <h4 class="step-title">ASSESS</h4>
+          <p class="step-desc">We identify gaps, unused capabilities, and integration opportunities across your ecosystem.</p>
+        </div>
+        <div class="process-step reveal reveal-delay-2">
+          <div class="step-dot"><div class="step-dot-inner"></div></div>
+          <p class="step-num">Step 03</p>
+          <h4 class="step-title">IMPLEMENT</h4>
+          <p class="step-desc">We execute with precision — delivering solutions in cost-effective manageable increments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lyte">
+    <div class="lyte-grid">
+      <div class="reveal">
+        <p class="section-label">// Our Name, Our Promise</p>
+        <h2 class="section-title">WHAT LYTE MEANS</h2>
+        <div class="lyte-letters">
+          <div class="lyte-letter-row">
+            <span class="lyte-big-letter">L</span>
+            <div class="lyte-word">
+              <div class="lyte-word-main">LEVERAGE</div>
+              <div class="lyte-word-desc">Extract maximum value from what you already own</div>
+            </div>
+          </div>
+          <div class="lyte-letter-row">
+            <span class="lyte-big-letter">Y</span>
+            <div class="lyte-word">
+              <div class="lyte-word-main">YOUR</div>
+              <div class="lyte-word-desc">Tailored to your unique business context and goals</div>
+            </div>
+          </div>
+          <div class="lyte-letter-row">
+            <span class="lyte-big-letter">TE</span>
+            <div class="lyte-word">
+              <div class="lyte-word-main">TECHNOLOGY</div>
+              <div class="lyte-word-desc">The tools and systems you've already invested in</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lyte-visual reveal reveal-delay-2">
+        <div class="lyte-box">
+          <div class="lyte-tagline">
+            YOUR TECH.<br>
+            WORKING<br>
+            <span class="highlight">HARDER.</span>
+          </div>
+          <p class="lyte-box-sub">
+            Most organizations use a fraction of the technology they've licensed. LYTE Solutions exists to close that gap as well as turn your existing investments into competitive advantage with the effective use of AI, Integration and system augmentation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="cta-bg"></div>
+    <div class="cta-content reveal">
+      <p class="section-label">// Ready to Start?</p>
+      <h2 class="cta-title">
+        LET'S MAKE YOUR<br>
+        <span class="outline">TECH WORK</span><br>
+        FOR YOU
+      </h2>
+      <p class="cta-sub">
+        Book a free discovery call and let's explore how LYTE Solutions can help you unlock the full potential of your technology investments.
+      </p>
+      <div class="cta-actions">
+        <a href="/cdn-cgi/l/email-protection#fd9598919192bd918489988e929188899492938ed39e9c" class="btn-primary">Book a Discovery Call</a>
+        <a href="/cdn-cgi/l/email-protection#cea6aba2a2a18ea2b7baabbda1a2bbbaa7a1a0bde0adaf" class="cta-email"><span class="__cf_email__" data-cfemail="caa2afa6a6a58aa6b3beafb9a5a6bfbea3a5a4b9e4a9ab">[email&#160;protected]</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">LYTE<span>.</span>Solutions</div>
+    <span class="footer-copy">© 2025 LYTE Solutions. lytesolutions.ca</span>
+    <span class="footer-tagline">Leverage <span>Your</span> Technology</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth nav highlight
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 200) current = sec.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current
+          ? 'var(--accent)' : '';
+      });
+    });
+    </script>
+</body>
+</html>
